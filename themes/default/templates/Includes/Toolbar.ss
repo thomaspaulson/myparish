@@ -1,0 +1,1 @@
+<ul class="menu toolbar"><li><a class="button" href=$Link('add')?&BackURL=$RequestedURL title="Add">Add</a></li></ul>

@@ -1,0 +1,10 @@
+---
+After: framework/routes#coreroutes
+---
+Director:
+  rules:
+    '': 'HomeController'
+    'home': 'HomeController'
+    'birth': 'BirthController'
+    'marriage': 'MarriageController'
+    'death': 'DeathController'
