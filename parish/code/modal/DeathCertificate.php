@@ -5,13 +5,13 @@ class DeathCertificate extends DataObject{
       'Year'        	=> 'Int',
       'RegNO'       	=> 'Varchar(20)',
       'DOD'        		=> 'SS_Datetime',
-      'Age'        	=> 'Int',
-      'Name'        	=> 'Varchar(200)',
-      'FathersName'     => 'Varchar(200)',
-      'MothersName'     => 'Varchar(200)',
-      'SpouseName'     	=> 'Varchar(200)',
+      'Age'        	    => 'Int',
+      'Name'        	=> 'Varchar(100)',
+      'FathersName'     => 'Varchar(100)',
+      'MothersName'     => 'Varchar(100)',
+      'SpouseName'     	=> 'Varchar(100)',
       'Parish'        	=> 'Varchar(100)',
-	  'Priest'        	=> 'Varchar(200)',
+	  'Priest'        	=> 'Varchar(100)',
 	  'Cemetery'       	=> 'Varchar(100)',
 	  'BuriedDate'		=> 'Date',
 	  'DeathCause' 		=> 'Varchar(100)',
@@ -25,7 +25,8 @@ class DeathCertificate extends DataObject{
 		'Year' => null,
 		'RegNO' => null,
 		'DOD' => null,
-		'BaptisedDate' => null,
+        'Age' => null,
+		'BuriedDate' => null,
 		'Date' => null,
 		'Deleted' => 0,		
 	);
@@ -34,8 +35,6 @@ class DeathCertificate extends DataObject{
 		$controller = singleton('DeathController');
 		$url = $controller->Link();
 		 
-		//$controller = new BirthController();
-		//$url = $controller->Link();
 		if($BackURL){
 			return Controller::join_links(
 				$url,

@@ -17,7 +17,8 @@ class HomeController extends SiteController {
     }    
     	
     public function MetaTitle() {
-        return $this->title;
+        return $this->title;        
+        
     }
     
 }

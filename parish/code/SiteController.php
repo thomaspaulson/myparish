@@ -17,9 +17,11 @@ class SiteController extends Controller
         Requirements::javascript('themes/default/js/what-input.js');
         Requirements::javascript('themes/default/js/foundation.js');
         parent::init();
+        
         // You can include any CSS or JS required by your project here.
         // See: http://doc.silverstripe.org/framework/en/reference/requirements
     }
+    
     
     // return request url with baseurl
     public function RedirectURL(){
