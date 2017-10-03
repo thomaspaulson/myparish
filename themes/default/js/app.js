@@ -7,6 +7,7 @@ function baseURL(){
 
 
 $(function() {
+    
     $('[name="action_doCancel"]').click(function(event) {    	
     	event.preventDefault;
     	$redirecturl = $('[name="RedirectURL"]').val();
@@ -14,4 +15,14 @@ $(function() {
     	return false;
     });
 
+
+    var availableRelations = [
+      "Wife",
+      "Sister",
+      "Mother"
+    ];
+    $( "#EditBirthForm_EditBirthForm_GodMotherRelation" ).autocomplete({
+      source: availableRelations
+    });
+    
 });

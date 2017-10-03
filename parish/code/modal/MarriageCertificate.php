@@ -9,13 +9,17 @@ class MarriageCertificate extends DataObject{
       'GroomFather'     => 'Varchar(100)',
       'GroomMother'     => 'Varchar(100)',
       'GroomParish'     => 'Varchar(100)',
+      'GroomBornAt'     => 'Varchar(100)',        
       'GroomDOB'        => 'Date',
+      'GroomBaptisedAt' => 'Varchar(100)',  
       'GroomBaptised'   => 'Date',
       'BrideName'       => 'Varchar(100)',
       'BrideFather'     => 'Varchar(100)',
       'BrideMother'     => 'Varchar(100)',
       'BrideParish'     => 'Varchar(100)',
       'BrideDOB'        => 'Date',
+      'BrideBornAt'     => 'Varchar(100)',                
+      'BrideBaptisedAt' => 'Varchar(100)',  
       'BrideBaptised'   => 'Date',            
       'Parish'          => 'Varchar(100)',
       'DOMarriage'      => 'Date',
@@ -23,46 +27,47 @@ class MarriageCertificate extends DataObject{
       'Witness1Parish'  => 'Varchar(100)',
       'Witness2'        => 'Varchar(100)',
       'Witness2Parish'  => 'Varchar(100)',
-	  'Place' 			=> 'Varchar(20)',
-	  'Date'    		=> 'Date',
-	  'ParishPriest' 	=> 'Varchar(100)',	  	  
-	  'Deleted'			=> 'Boolean'  	  	  
+      'Place'		=> 'Varchar(20)',
+      'Date'   		=> 'Date',
+      'ParishPriest' 	=> 'Varchar(100)',	
+      'Remarks' 	=> 'Varchar(100)',	        
+      'Deleted'		=> 'Boolean'  	  	  
     );
 	
-	private static $defaults = array(
-		'GroomDOB' => null,
+    private static $defaults = array(
+        'GroomDOB' => null,
         'GroomBaptised' => null,
-		'BrideDOB' => null,
+        'BrideDOB' => null,
         'BrideBaptised' => null,
         'DOMarriage' => null,
         'Date' => null,
-		'Deleted' => 0,		
-	);
+        'Deleted' => 0,		
+    );
     
     /*
-	public function Age($dob){
-		if($dob){
-			$from = new DateTime($dob);
-			$to   = new DateTime('today');
-			return  $from->diff($to)->y.' years';
-		}
+    public function Age($dob){
+        if($dob){
+            $from = new DateTime($dob);
+            $to   = new DateTime('today');
+            return  $from->diff($to)->y.' years';
+        }
     }*/    
 	
-	public function getLink($action = null, $BackURL = null){
-		$controller = singleton('MarriagehController');
-		$url = $controller->Link();		 
-		if($BackURL){
-			return Controller::join_links(
-				$url,
-				$action.'/'.$this->ID,
-				'?RedirectURL=' . urlencode($BackURL)			
-				);
-		}
+    public function getLink($action = null, $BackURL = null){
+        $controller = singleton('MarriageController');
+        $url = $controller->Link();		 
+        if($BackURL){
+                return Controller::join_links(
+                        $url,
+                        $action.'/'.$this->ID,
+                        '?RedirectURL=' . urlencode($BackURL)			
+                        );
+        }
         return Controller::join_links(
-            $url,
-            $action.'/'.$this->ID
+                $url,
+                $action.'/'.$this->ID
             );			
-
-	}
+        
+    }
 	
 }

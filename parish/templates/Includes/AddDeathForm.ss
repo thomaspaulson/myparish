@@ -8,20 +8,22 @@
                 <% end_if %>
 
                 <fieldset>
-                    <% if $Legend %><legend>$Legend</legend><% end_if %>
-                    
-					<% with $FieldMap %>
+                    <% if $Legend %><legend>$Legend</legend><% end_if %>                    
+        		<% with $FieldMap %>
                         <div class="grid-x grid-padding-x">
                           <div class="large-3 cell">							
-							<% with $Year %>
-								$Field<label for="$ID">$Title</label>
-							<% end_with %>
-							
-							<% with $RegNO %>
-								$Field<label for="$ID">$Title</label>
-							<% end_with %>
+                            <% with $Year %>
+                                <label for="$ID">$Title</label>$Field
+                            <% end_with %>
+                            <% with $RegNO %>
+                                <label for="$ID">$Title</label>$Field
+                            <% end_with %>
+                            <% with $PageNO %>
+                                <label for="$ID">$Title</label>$Field
+                            <% end_with %>
+                            
                           </div>
-                            <div class="large-9 cell">
+                          <div class="large-9 cell">
                                 <div class="input-group">
                               		<span class="input-group-label">In the year of Our Lord</span>
                                     <% with YearOD %>
@@ -31,7 +33,7 @@
                                 </div>
                               
                                 <div class="input-group">
-                                	<span class="input-group-label">month of</span>
+                                    <span class="input-group-label">month of</span>
                                     <% with MonthOD %>
                                         $addExtraClass('input-group-field')
                                     <% end_with %>
@@ -43,7 +45,10 @@
                                     <% with TimeOD %>
                                         $addExtraClass('input-group-field')
                                     <% end_with %>
-									<span class="input-group-label">am/pm</span>                                    							
+                                    <span class="input-group-label">&nbsp;</span>                                    							
+                                    <% with TimeStamp %>
+                                        $addExtraClass('input-group-field')
+                                    <% end_with %>                                    
                                 </div>
                               <div class="input-group">
                               		<span class="input-group-label">died</span>
@@ -57,11 +62,15 @@
                                     <% with Age %>
                                         $addExtraClass('input-group-field')
                                     <% end_with %>
-                                    <span class="input-group-label">son/daugther of </span>
+                                    <span class="input-group-label"> </span>
+                                    <% with Gender %>
+                                        $addExtraClass('input-group-field')
+                                    <% end_with %>                                    
+                                    <span class="input-group-label"> of </span>
                                     <% with FathersName %>
                                         $addExtraClass('input-group-field')
                                     <% end_with %>
-									<span class="input-group-label">and </span>                                    
+                                    <span class="input-group-label">and </span>                                    
                                     <% with MothersName %>
                                         $addExtraClass('input-group-field')
                                     <% end_with %>                                                                        
@@ -96,10 +105,18 @@
                                 </div>
                                 
                                 <div class="input-group">
-                                    <span class="input-group-label">of The Holy Catholic Church) and was buried with / without esslesiastical</span>
+                                    <span class="input-group-label">of The Holy Catholic Church) and was buried</span>
+                                    <% with $Ecclesiatical %>
+                                        $addExtraClass('input-group-field')
+                                    <% end_with %>   
+                                    <span class="input-group-label">esslesiastical</span>
                                 </div>                                
                                 <div class="input-group">
-                                    <span class="input-group-label">rites and with / without solemenity at the cemetery  of</span>
+                                    <span class="input-group-label">rites and </span>
+                                    <% with $Solemnity %>
+                                        $addExtraClass('input-group-field')
+                                    <% end_with %>                                               
+                                    <span class="input-group-label">solemnity at the cemetery  of</span>
                                     <% with Cemetery %>
                                         $addExtraClass('input-group-field')
                                     <% end_with %>       
@@ -120,54 +137,58 @@
                                     <% end_with %>                                    
                                 </div>
 
+                                <div class="input-group">
+                                    <span class="input-group-label">The cause of death was</span>
+                                    <% with DeathCause %>
+                                        $addExtraClass('input-group-field')
+                                    <% end_with %>       
+                                </div>    
+                              
 
-								<div class="grid-x grid-padding-x">
-									<div class="large-4 cell">
-		                                <div class="input-group">
-		                                    <span class="input-group-label">Place </span>
-		                                    <% with $Place %>
-		                                        $addExtraClass('input-group-field')
-		                                    <% end_with %>
-		                                </div>					
-		                                <div class="input-group">
-		                                    <span class="input-group-label">Date </span>
-		                                    <% with $Date %>
-		                                        $addExtraClass('input-group-field')
-		                                    <% end_with %>
-		                                </div>					
-		                                				 																																		
-									</div>								
-									<div class="large-8 cell">									 																																				                                <div class="input-group">
-		                                    <span class="input-group-label">Parish Priest </span>
-		                                    <% with $ParishPriest %>
-		                                        $addExtraClass('input-group-field')
-		                                    <% end_with %>
-		                                </div>					
+                                <div class="grid-x grid-padding-x">
+                                    <div class="large-4 cell">
+                                        <div class="input-group">
+                                            <span class="input-group-label">Place </span>
+                                            <% with $Place %>
+                                                $addExtraClass('input-group-field')
+                                            <% end_with %>
+                                        </div>					
+                                        <div class="input-group">
+                                            <span class="input-group-label">Date </span>
+                                            <% with $Date %>
+                                                $addExtraClass('input-group-field')
+                                            <% end_with %>
+                                        </div>		
 
-									</div>																		
-								</div>                    
-                                
-                            </div>																	
-						</div><!-- div class="grid-x grid-padding-x" -->
+                                    </div>								
+                                    <div class="large-8 cell">									 																																				                                <div class="input-group">
+                                            <span class="input-group-label">Parish Priest </span>
+                                            <% with $ParishPriest %>
+                                                $addExtraClass('input-group-field')
+                                            <% end_with %>
+                                    </div>
+                                </div>		
+                                    
+                                    </div>                                                    
+                                </div>																	
+                            </div><!-- div class="grid-x grid-padding-x" -->
 					
-					<% end_with %>		<%-- with $FieldMap --%>						
-						
-					$Fields.fieldByName('RedirectURL')
-					$Fields.fieldByName('SecurityID')
-					$Fields.fieldByName('FamilyID')					
-					
-					<% if $Fields.fieldByName('ID')	%>
-						$Fields.fieldByName('ID')						
-					<% end_if %>
-					
-					<div class="grid-x grid-padding-x">
+                    <% end_with %>		<%-- with $FieldMap --%>						
+
+                    $Fields.fieldByName('RedirectURL')
+                    $Fields.fieldByName('SecurityID')
+                    $Fields.fieldByName('FamilyID')					
+
+                    <% if $Fields.fieldByName('ID')	%>
+                            $Fields.fieldByName('ID')						
+                    <% end_if %>
+
+                    <div class="grid-x grid-padding-x">
                     <% if $Actions %>
                         <div class="Actions">
-                        	<div class="large-12 cell">
+                            <div class="large-12 cell">
                             <% loop $Actions %>
-                                
-									$addExtraClass('button')
-                                
+				$addExtraClass('button')                                
                             <% end_loop %>
                             </div>
                         </div>

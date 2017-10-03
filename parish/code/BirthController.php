@@ -20,6 +20,8 @@ class BirthController extends SiteController {
     }    
     	
     public function add(){
+        Requirements::css('parish/css/jquery-ui-1.12.1.custom/jquery-ui.css');
+        Requirements::javascript('parish/css/jquery-ui-1.12.1.custom/jquery-ui.js');
         $this->title = "Add birth";
         $form = $this->AddBirthForm();
         
@@ -43,40 +45,43 @@ class BirthController extends SiteController {
     }
     
     public function edit(){
+        Requirements::css('parish/css/jquery-ui-1.12.1.custom/jquery-ui.css');
+        Requirements::javascript('parish/css/jquery-ui-1.12.1.custom/jquery-ui.js');
+        
         $id = (int)$this->request->param('ID');
-		$birthCertificate = BirthCertificate::get()->byID($id);
-		if(!$birthCertificate){
-		    return $this->httpError('404','Page not found');	
-		}
-		$this->title = 'Edit  / <small>'. $birthCertificate->Name.'</small>';
-	
-		$form = $this->EditBirthForm();
-		$form->setTemplate('AddBirthForm');
-		if($birthCertificate->exists() && $form){
-			$form->loadDataFrom($birthCertificate);
-		}
-		 
-		if($birthCertificate->DOB){
-			$dob = $form->Fields()->fieldByName('DOB');
-			$dob->setValue(date('d-m-Y',strtotime($birthCertificate->DOB)));
-		}	
+        $birthCertificate = BirthCertificate::get()->byID($id);
+        if(!$birthCertificate){
+            return $this->httpError('404','Page not found');	
+        }
+        $this->title = 'Edit  / <small>'. $birthCertificate->Name.'</small>';
 
-		if($birthCertificate->BaptisedDate){
-			$baptisedDate = $form->Fields()->fieldByName('BaptisedDate');
-			$baptisedDate->setValue(date('d-m-Y',strtotime($birthCertificate->BaptisedDate)));
-		}
+        $form = $this->EditBirthForm();
+        $form->setTemplate('AddBirthForm');
+        if($birthCertificate->exists() && $form){
+                $form->loadDataFrom($birthCertificate);
+        }
 
-		if($birthCertificate->Date){
-			$date = $form->Fields()->fieldByName('Date');
-			$date->setValue(date('d-m-Y',strtotime($birthCertificate->Date)));
-		}
+        if($birthCertificate->DOB){
+                $dob = $form->Fields()->fieldByName('DOB');
+                $dob->setValue(date('d-m-Y',strtotime($birthCertificate->DOB)));
+        }	
 
-		$backURL = urldecode($this->getRequest()->getVar('BackURL'));
-		$redirectURL = $form->Fields()->fieldByName('RedirectURL');
-		$redirectURL->setValue($backURL);
+        if($birthCertificate->BaptisedDate){
+                $baptisedDate = $form->Fields()->fieldByName('BaptisedDate');
+                $baptisedDate->setValue(date('d-m-Y',strtotime($birthCertificate->BaptisedDate)));
+        }
+
+        if($birthCertificate->Date){
+                $date = $form->Fields()->fieldByName('Date');
+                $date->setValue(date('d-m-Y',strtotime($birthCertificate->Date)));
+        }
+
+        $backURL = urldecode($this->getRequest()->getVar('BackURL'));
+        $redirectURL = $form->Fields()->fieldByName('RedirectURL');
+        $redirectURL->setValue($backURL);
 
 
-		$data = array('Form' => $form);
+        $data = array('Form' => $form);
         return $this->customise($data)->renderWith(array('Generic_form', 'App'));
 		
     }

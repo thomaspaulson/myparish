@@ -20,6 +20,9 @@ class DeathController extends SiteController {
     }    
     	
     public function add(){
+        Requirements::css('parish/css/jquery-ui-1.12.1.custom/jquery-ui.css');
+        Requirements::javascript('parish/css/jquery-ui-1.12.1.custom/jquery-ui.js');
+        
         $this->title = "Add Death";
         $form = $this->AddDeathForm();
         
@@ -43,56 +46,59 @@ class DeathController extends SiteController {
     }
     
     public function edit(){
-        $id = (int)$this->request->param('ID');
-		$deathCertificate = DeathCertificate::get()->byID($id);
-		if(!$deathCertificate){
-		    return $this->httpError('404','Page not found');	
-		}
-		$this->title = 'Edit  / <small>'. $deathCertificate->Name.'</small>';
-	
-		$form = $this->EditDeathForm();
-		$form->setTemplate('AddDeathForm');
-		if($deathCertificate->exists() && $form){
-			$form->loadDataFrom($deathCertificate);
-		}
-		 
-		if($deathCertificate->DOD){
-			$yearODField = $form->Fields()->fieldByName('YearOD');
-			$yearODField->setValue(date('Y',strtotime($deathCertificate->DOD)));
-			
-			$monthODField = $form->Fields()->fieldByName('MonthOD');
-			$monthODField->setValue(date('m',strtotime($deathCertificate->DOD)));
-			
-			$dateODField = $form->Fields()->fieldByName('DateOD');
-			$dateODField->setValue(date('d',strtotime($deathCertificate->DOD)));
-
-			$timeODField = $form->Fields()->fieldByName('TimeOD');
-			$timeODField->setValue(date('H:i',strtotime($deathCertificate->DOD)));
-			
-		}	
-
-		if($deathCertificate->BuriedDate){
-			$dateBuriedField = $form->Fields()->fieldByName('DateBuried');
-			$dateBuriedField->setValue(date('d',strtotime($deathCertificate->BuriedDate)));
-
-			$monthBuriedField = $form->Fields()->fieldByName('MonthBuried');
-			$monthBuriedField->setValue(date('m',strtotime($deathCertificate->BuriedDate)));
-
-			$yearBuriedField = $form->Fields()->fieldByName('YearBuried');
-			$yearBuriedField->setValue(date('Y',strtotime($deathCertificate->BuriedDate)));            
-		}
-
-		if($deathCertificate->Date){
-			$date = $form->Fields()->fieldByName('Date');
-			$date->setValue(date('d-m-Y',strtotime($deathCertificate->Date)));
-		}
+        Requirements::css('parish/css/jquery-ui-1.12.1.custom/jquery-ui.css');
+        Requirements::javascript('parish/css/jquery-ui-1.12.1.custom/jquery-ui.js');
         
-		$backURL = urldecode($this->getRequest()->getVar('BackURL'));
-		$redirectURL = $form->Fields()->fieldByName('RedirectURL');
-		$redirectURL->setValue($backURL);
+        $id = (int)$this->request->param('ID');
+        $deathCertificate = DeathCertificate::get()->byID($id);
+        if(!$deathCertificate){
+            return $this->httpError('404','Page not found');	
+        }
+        $this->title = 'Edit  / <small>'. $deathCertificate->Name.'</small>';
+
+        $form = $this->EditDeathForm();
+        $form->setTemplate('AddDeathForm');
+        if($deathCertificate->exists() && $form){
+                $form->loadDataFrom($deathCertificate);
+        }
+
+        if($deathCertificate->DOD){
+            $yearODField = $form->Fields()->fieldByName('YearOD');
+            $yearODField->setValue(date('Y',strtotime($deathCertificate->DOD)));
+
+            $monthODField = $form->Fields()->fieldByName('MonthOD');
+            $monthODField->setValue(date('m',strtotime($deathCertificate->DOD)));
+
+            $dateODField = $form->Fields()->fieldByName('DateOD');
+            $dateODField->setValue(date('d',strtotime($deathCertificate->DOD)));
+
+            $timeODField = $form->Fields()->fieldByName('TimeOD');
+            $timeODField->setValue(date('H:i',strtotime($deathCertificate->DOD)));
+
+        }	
+
+        if($deathCertificate->BuriedDate){
+            $dateBuriedField = $form->Fields()->fieldByName('DateBuried');
+            $dateBuriedField->setValue(date('d',strtotime($deathCertificate->BuriedDate)));
+
+            $monthBuriedField = $form->Fields()->fieldByName('MonthBuried');
+            $monthBuriedField->setValue(date('m',strtotime($deathCertificate->BuriedDate)));
+
+            $yearBuriedField = $form->Fields()->fieldByName('YearBuried');
+            $yearBuriedField->setValue(date('Y',strtotime($deathCertificate->BuriedDate)));            
+        }
+
+        if($deathCertificate->Date){
+            $date = $form->Fields()->fieldByName('Date');
+            $date->setValue(date('d-m-Y',strtotime($deathCertificate->Date)));
+        }
+
+        $backURL = urldecode($this->getRequest()->getVar('BackURL'));
+        $redirectURL = $form->Fields()->fieldByName('RedirectURL');
+        $redirectURL->setValue($backURL);
 
 
-		$data = array('Form' => $form);
+        $data = array('Form' => $form);
         return $this->customise($data)->renderWith(array('Generic_form', 'App'));
 		
     }
@@ -123,88 +129,88 @@ class DeathController extends SiteController {
 
     public function delete(){
         $id = (int)$this->request->param('ID');
-		$deathCertificate = DeathCertificate::get()->byID($id);        
-		if(!$deathCertificate){
-		    return $this->httpError('404','Page not found');	
-		}		
+        $deathCertificate = DeathCertificate::get()->byID($id);        
+        if(!$deathCertificate){
+            return $this->httpError('404','Page not found');	
+        }		
         $deathCertificate->Deleted = 1;
-		$deathCertificate->write();
-		
-		$backURL = urldecode($this->getRequest()->getVar('BackURL'));//exit($backURL );
+        $deathCertificate->write();
+
+        $backURL = urldecode($this->getRequest()->getVar('BackURL'));//exit($backURL );
         if($backURL){
-        	return $this->redirect($backURL.'&message=deleted');
+            return $this->redirect($backURL.'&message=deleted');
         }
         
-		return $this->redirect($this->Link().'?message=deleted');		
+        return $this->redirect($this->Link().'?message=deleted');		
     }    
     
-	public function SearchForm(){
-		$form = new DeathSearchForm($this, __FUNCTION__);
+    public function SearchForm(){
+        $form = new DeathSearchForm($this, __FUNCTION__);
         $form->setFormMethod('get')
             ->setFormAction($this->link());
         $form->setLegend('Search');
         $form->loadDataFrom($this->request->getVars());
         $form->disableSecurityToken();		
-		return $form;		 
-	}
+        return $form;		 
+    }
 	
     public function doprint(){		
         $id = (int)$this->request->param('ID');
-		$DeathCertificate = DeathCertificate::get()->byID($id);
-		if(!$DeathCertificate){
-		    return $this->httpError('404','Page not found');	
-		}
+        $DeathCertificate = DeathCertificate::get()->byID($id);
+        if(!$DeathCertificate){
+            return $this->httpError('404','Page not found');	
+        }
 				
-		$this->title = 'Death certificate';
-		$data = array('DeathCertificate' => $DeathCertificate);
+        $this->title = 'Death certificate';
+        $data = array('DeathCertificate' => $DeathCertificate);
         return $this->customise($data )
-			->renderWith(array('Death_print','Print'));	        
+		->renderWith(array('Death_print','Print'));	        
     }        
     
 	
     public function getAllDeathCertificates(){
         
-		$sqlQuery = new SQLQuery();
-		$sqlQuery->setFrom('DeathCertificate');		
-		
+        $sqlQuery = new SQLQuery();
+        $sqlQuery->setFrom('DeathCertificate');		
 
-		$name = Convert::raw2sql($this->request->getVar('Name'));
+
+	$name = Convert::raw2sql($this->request->getVar('Name'));
         $blockNo = Convert::raw2sql($this->request->getVar('DOB'));
 		
-		if($name) {		
-			$sqlQuery->addWhere("DeathCertificate.Name LIKE '%$name%'");
-		}
-		
-		if($dateOfDeath = Convert::raw2sql($this->request->getVar('DateOfDeath'))) {		
-			$date = date('Y-m-d', strtotime($dateOfDeath));
-			$sqlQuery->addWhere("DeathCertificate.DateOfDeath = '$date'");
-		}
-		
-		$sqlQuery->addWhere("DeathCertificate.Deleted != '1'");
-		
-		$sqlQuery->setOrderBy('DeathCertificate.ID DESC');
-		$result = $sqlQuery->execute();
-		//echo $sqlQuery->sql();
-		// Iterate over results
-		$arrList = new ArrayList();
-		$count = $result->numRecords();
-		//echo 'SELECT COUNT(*) FROM "Family" where ParishID = '.$myparish->ID;
-		$counter = 0;
-		foreach($result as $row) {			
-			$row['Counter'] = $count--;
-			//$row['Counter'] = ++$counter;
-			$arrList->add($row); 
-		}
-		
-		return $arrList;		
+        if($name) {		
+                $sqlQuery->addWhere("DeathCertificate.Name LIKE '%$name%'");
+        }
+
+        if($dateOfDeath = Convert::raw2sql($this->request->getVar('DateOfDeath'))) {		
+                $date = date('Y-m-d', strtotime($dateOfDeath));
+                $sqlQuery->addWhere("DeathCertificate.DateOfDeath = '$date'");
+        }
+
+        $sqlQuery->addWhere("DeathCertificate.Deleted != '1'");
+
+        $sqlQuery->setOrderBy('DeathCertificate.ID DESC');
+        $result = $sqlQuery->execute();
+        //echo $sqlQuery->sql();
+        // Iterate over results
+        $arrList = new ArrayList();
+        $count = $result->numRecords();
+        //echo 'SELECT COUNT(*) FROM "Family" where ParishID = '.$myparish->ID;
+        $counter = 0;
+        foreach($result as $row) {			
+                $row['Counter'] = $count--;
+                //$row['Counter'] = ++$counter;
+                $arrList->add($row); 
+        }
+
+        return $arrList;		
     }
 	
-	public function PaginatedList(){
-		$list = new PaginatedList($this->list, $this->request);
+    public function PaginatedList(){
+        $list = new PaginatedList($this->list, $this->request);
         $list->setPageLength($this->getPageLength());
-		return $list;
-	}	
-	
+        return $list;
+    }	
+
     public function MetaTitle() {
         return $this->title;
     }
